@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery/memberList.html</title>
+	<script src='jquery-3.6.0.min.js'></script>
+	<script>
+		// 생성자 함수
+		function Member(id, name, score) {
+			this.id = id;
+			this.name = name;
+			this.score = score;
+		}
+		let members = [
+			new Member('user1', '산초', 80),
+			new Member('user2', '산톨', 85),
+			new Member('user3', '알밤', 90)
+		];
+		$(document).ready(function () {
+			//let ul = document.createElement('ul');
+			//members.forEach(function(val,ind){
+			//let li = document.createElement('li');
+			//li.textContent = `id: ${val.id}, name: ${val.name}`;
+			//ul.appendChild(li);
+			//})
+			//document.getElementById('show').appendChild(ul);
+			let ul = $('<ul id="addt"><li>apple</li></ul>'); //jquery
+			console.log(ul);
+			// ul = document.createElement('ul');
+			// console.log(ul);
+
+			$(members).each(function(val, ind){
+				console.log(val, ind);
+				// 하위요소를 append
+				$(ul).append( $('<li>').text(`id: ${val.id}, name: ${val.name}`));
+			});
+			$('#show').append(ul);
+		});
+	</script>
+</head>
+
+<body>
+	<div id="show"></div>
+	<!-- <ul><li>아이디, 이름, 점수</li></ul> -->
+
+</body>
+
+</html>

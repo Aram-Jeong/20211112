@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         html{
+            background-color: rgb(236, 182, 145);
+        }
+        #box{
+            width: 400px;
+            height: 200px;
+            margin: 150px auto;
+            background-color: white;   
+            border: 1px dashed salmon;  
+        }
+        header{
+            text-align: center;  
+            color: salmon;
+        }
+        form{
+            padding-top: 8px;
+            margin-bottom: 30px;
+            text-align: center;  
+            color: salmon;
+            font-weight: bold;
+        }
+     
+        #login_click{
+            margin-top: 15px;
+            text-align: center;
+        }
+        button {
+            background: salmon;
+            color: #fff;
+            border: none;
+            position: relative;
+            height: 22px;
+            font-size: 0.6em;
+            padding: 0 2em;
+            cursor: pointer;
+            transition: 800ms ease all;
+            outline: none;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background: #fff;
+            color: salmon;
+        }
+
+        button:before,
+        button:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 2px;
+            width: 0;
+            background: salmon;
+            transition: 400ms ease all;
+        }
+
+        button:after {
+            right: inherit;
+            top: inherit;
+            left: 0;
+            bottom: 0;
+        }
+
+        button:hover:before,
+        button:hover:after {
+            width: 100%;
+            transition: 800ms ease all;
+        }
+        input[type=text]{
+            margin-left: 15px;
+        }
+    </style>
+    
+    <script>
+        var id = [
+            "user1", 
+            "user2", 
+            "user3", 
+            "user4"
+        ];
+       
+        var pw = [
+            "1111", 
+            "2222", 
+            "3333",
+            "4444"
+        ];
+
+        var name = [
+            "산초",
+            "산톨",
+            "별이",
+            "몽돌"
+        ]
+
+        function loginCheck(){
+            var form = document.login_form;
+
+        for(var i = 0; i < id.length; i++){
+            if(id[i] == form.id.value){
+                if(pw[i] == form.pw.value){
+                    alert((id[i]) + "님 환영합니다.");
+                     location.href="todolist.html";
+                    break;
+                }else{
+                    alert("비밀번호가 틀렸습니다.");
+                    break;
+                }
+            }
+        }
+        }
+
+        // sessionStorage.setItem('seesionName', 'sscott');
+        // localStorage.setItem('localName', 'lscott');
+        // localStorage.userName = 'Hong';
+        // localStorage['userpw'] = '1234';
+        // location.href = 'person.html';
+    </script>
+</head>
+<body>
+    <div id="box">
+        <header>
+            <h2>Login💌🍄🍧🧁🎈🦊</h2>
+        </header>
+       <form name="login_form">
+           아이디 <input type="text" name="id"><br>
+           비밀번호 <input type="password" name="pw"><br>
+       </form>
+        <div id="login_click">
+           <button id="login" value="로그인" onclick="loginCheck()">로그인</buttion>
+            <button id="cancel" value="취소">취소</button>
+        </div>
+    </div> <!--box end-->
+    
+</body>
+</html>

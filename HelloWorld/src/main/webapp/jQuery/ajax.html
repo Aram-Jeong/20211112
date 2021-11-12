@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery/ajax.html</title>
+<script>
+ $(document).ready(function () {
+        //ajax :XMLHttpRequest();
+        $.ajax({
+          url: "../javascript/MOCK_DATA.json", //요청페이지(txt,html,xml,json)
+          type: "get", //get,post 따로 안적으면 get방식
+          data: {
+            id: 3,
+            name: "hong",
+          }, //'id=3&name=hong'parameter=>request.getParameter();
+          dataType: "json", // JSON.parse(this.responseText)
+          success: successCallBack,
+          error: errorCallBack,
+        });
+
+		
+	
+	// success 콜백함수
+	function successCallBack(data, textStatus, jqXHR){
+		// 페이지를 지정
+		console.log(data ,textStatus, jqXHR);
+		let obj = data[0]; // {id:, first_name:?, last_name:?...}
+		let fields = []; // ['id', 'first_name', 'last_name', 'email'...]
+	
+		// table, tbody
+		let table = $('<table>').attr({'id':'tbl','border':1});
+		let tbody = $('<tbody>');
+		$(table).append(tbody);
+		// tr 요소
+		$(data).each((ind, val) => { // arrow func
+			let tr = $('<tr>');
+			for(let field of fields){
+			//	$(tr).append($('<td>').text(val[field]));
+				$('<td>').text(val[fields]).appendTo(tr); // 어펜드투는 만들어진 요소를 하위에 넣음
+
+				}
+				$(tr).append($('<button>').text('삭제').click(clickFnc));
+				$(tbody).append(tr);
+		});
+		// show 하위에
+		$('#show').append(table);
+
+		// $('#tbl>tbody>tr>button').on('click', clickFnc);
+		$('#tbl>tbody').on('click', 'butoon', clickFnc); 
+
+		$('#tbl>tbody>tr:gt(2)').css('background-color', 'yellow') // lt 이하 gt 이상  / .eq(2) 해당
+																   // slice(2, 5) 2번 이후부터 5까지
+																   // contains(단어)
+	}
+
+	// click 콜백함수
+	function clickFnc(){
+		event.stopPropagation();
+		console.log($(this));
+		let trClone = $(this).parent().clone(); // clone: copy
+		// $('#tbl>tbody>tr:nth-child(1)').after(trClone); // after: 해당요소(nth어쩌구 1번) 뒤에 추가
+		$(this).parent().remove();
+	}
+
+	// error 콜백함수
+	function errorCallBack(jqXHR, textStatus, errorThrown){
+		console.error(jqXHR, textStatus, errorThrown)	
+	}
+}); 
+</script>
+</head>
+<body>
+	<div id="show"></div>
+
+</body>
+</html>

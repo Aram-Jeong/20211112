@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    // hr : 부서별 인원정보
+    let xhtp = new XMLHttpRequest();
+    xhtp.open('get', '../GetMemberByDeptServ');
+    xhtp.send();
+    xhtp.onload = function(){
+    	let obj = JSON.parse(xhtp.responseText); // {"Admiin":1, "IT":3}
+    	console.log(obj);
+    	let result = [
+          ['Dept', 'Member per Dept']
+          
+        ]; // 배열 안에 배열요소...
+    	
+    	for(let field in obj){
+    		let ary = []; 
+    		ary.push(field); // 내부 배열에 넣어주고
+    		ary.push(obj[field]); // 바깥에 result 배열에
+    		result.push(ary);
+    	}
+    	console.log(result);
+    		
+    	
+    	// 구글차트 기능 가져온 부분
+    	  google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawChart);
+          
+          function drawChart() {
+
+              var data = google.visualization.arrayToDataTable(result); // 구글 메소드 안에 result값 넣음
+
+              var options = {
+                title: 'Member Per Department'
+              };
+
+              var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+              chart.draw(data, options);
+            }
+    }
+    
+    
+
+     
+    </script>
+  </head>
+  <body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>

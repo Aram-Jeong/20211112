@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery/jQuery.html</title>
+<script src='jquery-3.6.0.min.js'></script>
+<script>
+document.addEventListner("DOMCotentLoaded", function(){
+	
+})
+btn.addEventListenr('click', function(){
+	
+});
+btn.onclick = function(){
+	
+};
+
+$(document).ready(loadFnc);
+
+	function loadFnc(){
+	
+	let table = $('<table></table>');
+	$(table).attr('id','tbl');
+	$(table).append($('<tbody></tbody>'));
+	
+	$(table).append($('<caption>TABLE</caption>'));
+	$('div>div').append(table);
+	console.log(table); // <table></table>
+	
+	$('#tbl>caption').text();
+}
+
+</script>
+</head>
+<body>
+<div id='container'>
+	<div id="show"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>api/covid19.html</title>
+</head>
+<body>
+	<div id="show"></div>
+	<script>
+	// 필드를 배열에 담기
+	let fields = [
+		{id:'아이디'},
+		{centerName:'센터명'},
+		{sido:'시도'},
+		{sigungu:'시군구'},
+		{address:'주소'},
+		{zipCode:'우편번호'},
+		{phoneNumber:'전화번호'},
+		{centerType:'중앙/권역'},
+		{facilityName:'건물'}
+	];
+	// 테이블 생성자 함수
+	function CovidTable(table, thead, tbody){
+		this.table = table;
+		this.thead = thead;
+		this.tbody = tbody;
+		this.attachThead = function(){
+			this.table.appendChild(this.thead);
+		};
+		this.attachTbody = function(){
+			this.table.appendChild(this.tbody);
+		}
+		this.createTable = function() {
+			this.attachThead();
+			this.attachTbody();
+			return this.table;
+		}
+		
+	}
+	// thead 함수
+	function makeHead(){
+		let thead = document.createElement('thead');
+		let tr = document.createElement('tr');
+		fields.forEach(function(val, ind){
+			let th = document.createElement('th');
+			for(let field in val){
+				th.textContent = val[field];
+				tr.appendChild(th);
+			}	
+		});
+		// 위도, 경도
+		let td = document.createElement('th');
+		td.textContent = '지도';
+		tr.appendChild(td);
+		
+		thead.appendChild(tr);
+		return thead;
+	}
+	
+	// tbody 생성
+	function makeBody(ary){
+		let tbody = document.createElement('tbody');
+		ary.forEach(function(val, ind){ // val: {address:?, id:? ...}	
+			tbody.appendChild(makeTr(val));
+		});
+		return tbody;
+	}
+	// tr 생성
+	function makeTr(obj){
+		let tr = document.createElement('tr');
+		for(let field of fields){
+			fields.forEach(function(val, ind){ // address:?, centerName:?
+				let td = document.createElement('td');
+				for(let field in val){
+					td.textContent = obj[field];
+				}
+				tr.appendChild(td);
+				
+			});
+			// 위도, 경도
+			let td = document.createElement('td');
+			td.innerHTML = '<a href="map.jsp?a='+obj.org+'&x='+obj.lat+'&y='+obj.lng+'" target="_blank">지도</a>';
+			tr.appendChild(td);
+			return tr;
+			
+		}
+		
+	}
+	
+	// ajax 호출: 서버의 페이지 호출해서 결과를 화면에 작성
+	let url = 'https://api.odcloud.kr/api/15077586/v1/centers?';
+	url += 'page=1';
+	url += '&perPage=10';
+	url += '&returnType=json'
+	url += '&serviceKey=miRtShMbl5P0oa0EQpd%2F6fksfKzq2EPC7BGHQ59kKx3%2B7qbSpn1yIVlRrw6HqAI%2FtgAFFI2qU3vRkRr4gCa5Zw%3D%3D';
+	let xhtp = new XMLHttpRequest();
+	xhtp.open('get', url);
+	xhtp.send();
+	xhtp.onload = function(){
+		let result = JSON.parse(this.responseText);
+		// open api 데이터를 covidAry 저장
+		let covidAry = [];
+		result.data.forEach(function(val, ind){
+			covidAry.push(val);
+		});
+		
+		let table, tbody, tr, td;
+		table = document.createElement('table');
+		table.setAttribute('border','1');
+		thead = makeHead(); // 타이틀 담음
+		tbody = makeBody(covidAry);
+		
+		let covidTable = new CovidTable(table, thead, tbody);
+		
+		document.getElementById('show').appendChild(covidTable.createTable());
+			
+		
+	}
+	
+	</script>
+
+</body>
+</html>

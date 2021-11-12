@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test_1112/test_main.html</title>
+    <script src='jquery-3.6.0.min.js'></script>
+    <style>
+        *{
+            margin: 0;
+        }
+        #box{
+         width: 600px;
+         border: 1px dashed salmon;
+         margin: 50px auto;
+         background-color: rgb(248, 220, 211);
+         height: 800px;
+        }
+        .input_info{
+            width: 400px;
+            border-right: 1px dashed salmon;
+            padding-left: 50px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            background-color: rgb(248, 220, 211);
+            float: left;
+        }
+        .input_info>input[type=text]:nth-child(1){
+            margin-left: 40px;
+            margin-bottom: 10px ;
+            
+        }
+        .input_info>input[type=text]:nth-of-type(2){
+            margin-left: 56px;
+            margin-bottom: 10px ;
+        }
+        .input_info>input[type=text]:nth-of-type(3){
+            margin-left: 88px;
+            margin-bottom: 10px ;
+        }
+        .input_info>input[type=text]:nth-of-type(4){
+            margin-left: 72px;
+            margin-bottom: 10px ;
+        }
+        .input_info>input[type=date]{
+            margin-left: 72px;
+            width: 172px;
+        }
+        #insert{  
+           float: right;
+           margin-right: 35px;
+           padding-bottom: 80px;
+        }
+        button{
+            margin-left: 40px;
+            margin-top: 80px;
+            margin-bottom: 80x;
+            width: 70px;
+            height: 60px;
+        }
+        #list_box{
+    
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="input_info">
+            사용자아이디 <input type="text"><br>
+            사용자이름 <input type="text"><br>
+            이메일 <input type="text"><br>
+            전화번호 <input type="text"><br>
+            생년월일 <input type="date" name="birth" id="birth">
+        </div>
+        <div id="insert">
+            <button>등록</button>
+        </div>
+        <section id="list_box">
+
+        </section>
+
+    </div>
+    
+</body>
+</html>
